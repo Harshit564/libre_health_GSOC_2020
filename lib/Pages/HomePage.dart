@@ -1,12 +1,12 @@
-import 'dart:io';
-//import 'package:firebase_core/firebase_core.dart';
-//import 'package:firebase_database/firebase_database.dart';
-//import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:intl/intl.dart';
+import 'package:librehealth/Models/note.dart';
+import 'package:librehealth/Pages/LoginPage.dart';
+import 'package:librehealth/Screens/BirthDetail.dart';
+import 'package:librehealth/Screens/BirthList.dart';
+import 'package:librehealth/Utils/DatabaseHelper.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:sqflite/sqflite.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,180 +16,149 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-
-  var data;
-  bool autoValidate = true;
-  bool readOnly = false;
-  bool showSegmentedControl = true;
-  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
-  final GlobalKey<FormFieldState> _specifyTextFieldKey =
-      GlobalKey<FormFieldState>();
-  //final FirebaseDatabase database=FirebaseDatabase.instance;
-
-  ValueChanged _onChanged = (val) => print(val);
-  var genderOptions = ['Male', 'Female', 'Other'];
+  DatabaseHelper databaseHelper = DatabaseHelper();
+  List<Note> noteList;
+  int count = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Home Page"),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(10),
-        child: SingleChildScrollView(
-          child: Column(
+    return WillPopScope(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("Home Page"),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.exit_to_app),
+              onPressed: () => _onAlertButtonsPressed(context),
+              tooltip: "Log Out",
+            ),
+          ],
+        ),
+        body: Padding(
+          padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+          child: ListView(
             children: <Widget>[
-              FormBuilder(
-                // context,
-                key: _fbKey,
-                autovalidate: true,
-                readOnly: false,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      child: Text(
-                        'Fill the form',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
-                      ),
-                    ),
-                    FormBuilderDateTimePicker(
-                      attribute: "date",
-                      onChanged: _onChanged,
-                      inputType: InputType.time,
-                      decoration: InputDecoration(
-                        labelText: "Birth Time",
-                      ),
-                      validator: (val) => null,
-                      initialTime: TimeOfDay(hour: 8, minute: 0),
-                      // initialValue: DateTime.now(),
-                      // readonly: true,
-                    ),
-                    FormBuilderDateTimePicker(
-                      attribute: "birth_date",
-                      format: DateFormat("yyyy-MM-dd"),
-                      onChanged: _onChanged,
-                      decoration: InputDecoration(
-                        labelText: "Birth Date",
-                        hintText: "2020-03-19",
-                      ),
-                    ),
-                    FormBuilderRangeSlider(
-                      attribute: "range_slider",
-                      validators: [FormBuilderValidators.min(6)],
-                      onChanged: _onChanged,
-                      min: 0.0,
-                      max: 100.0,
-                      initialValue: RangeValues(4, 7),
-                      divisions: 20,
-                      activeColor: Colors.orange,
-                      inactiveColor: Colors.orange[200],
-                      decoration: InputDecoration(
-                        labelText: "Weight of the Baby",
-                      ),
-                    ),
-                    FormBuilderDropdown(
-                      attribute: "gender",
-                      decoration: InputDecoration(
-                        labelText: "Gender",
-                      ),
-                      // initialValue: 'Male',
-                      hint: Text('Select Gender'),
-                      validators: [FormBuilderValidators.required()],
-                      items: genderOptions
-                          .map((gender) => DropdownMenuItem(
-                                value: gender,
-                                child: Text('$gender'),
-                              ))
-                          .toList(),
-                    ),
-                    FormBuilderSignaturePad(
-                      decoration: InputDecoration(labelText: "Signature"),
-                      attribute: "signature",
-                      // height: 250,
-                      penColor: Colors.orange,
-                      clearButtonText: "Start Over",
-                      onChanged: _onChanged,
-                    ),
-                    FormBuilderCheckbox(
-                      attribute: 'accept_terms',
-                      initialValue: false,
-                      onChanged: _onChanged,
-                      leadingInput: true,
-                      label: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'I have read and agree to the ',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            TextSpan(
-                              text: 'Terms and Conditions',
-                              style: TextStyle(color: Colors.orange),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  print("launch url");
-                                },
-                            ),
-                          ],
-                        ),
-                      ),
-                      validators: [
-                        FormBuilderValidators.requiredTrue(
-                          errorText:
-                              "You must accept terms and conditions to continue",
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(20),
+                child: Image.asset('images/lh.png'),
               ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: MaterialButton(
-                      color: Colors.orange,
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () {
-                        if (_fbKey.currentState.saveAndValidate()) {
-                          print(_fbKey.currentState.value);
-                        } else {
-                          print(_fbKey.currentState.value);
-                          print("validation failed");
-                        }
-                      },
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.only(
+                    top: 15.0, bottom: 15.0, left: 100.0, right: 100.0),
+                child: Image.asset('images/logo.png'),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 100.0, right: 100.0),
+                child: RaisedButton(
+                    color: Colors.orange,
+                    textColor: Colors.white,
+                    child: Text(
+                      'View Data',
+                      textScaleFactor: 1.3,
                     ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    child: MaterialButton(
-                      color: Colors.orange,
-                      child: Text(
-                        "Reset",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () {
-                        _fbKey.currentState.reset();
-                      },
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => NoteList()),
+                      );
+                    }),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 100.0, right: 100.0),
+                child: RaisedButton(
+                    color: Colors.orange,
+                    textColor: Colors.white,
+                    child: Text(
+                      'New Data',
+                      textScaleFactor: 1.3,
                     ),
-                  ),
-                ],
+                    onPressed: () {
+                      navigateToDetail(Note('', '', 2), 'Add Birth Detail');
+                    }),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  _onAlertButtonsPressed(context) {
+    Alert(
+      style: AlertStyle(
+        backgroundColor: Colors.black,
+        titleStyle: TextStyle(color: Colors.white),
+        descStyle: TextStyle(color: Colors.white),
+      ),
+      context: context,
+      type: AlertType.warning,
+      title: "LOG OUT",
+      desc: "Do you want to log out your ID ?",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "Cancel",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+          gradient: LinearGradient(colors: [
+            Color(0xFF20BF55),
+            Color(0xFF01BAEF),
+          ]),
+        ),
+        DialogButton(
+          child: Text(
+            "Log Out",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginPage()),
+            );
+          },
+          gradient: LinearGradient(colors: [
+            Color.fromRGBO(116, 116, 191, 1.0),
+            Color.fromRGBO(52, 138, 199, 1.0)
+          ]),
+        )
+      ],
+    ).show();
+  }
+
+  void navigateToDetail(Note note, String title) async {
+    bool result =
+        await Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return NoteDetail(note, title);
+    }));
+
+    if (result == true) {
+      updateListView();
+    }
+  }
+
+  void updateListView() {
+    final Future<Database> dbFuture = databaseHelper.initializeDatabase();
+    dbFuture.then((database) {
+      Future<List<Note>> noteListFuture = databaseHelper.getNoteList();
+      noteListFuture.then((noteList) {
+        setState(() {
+          this.noteList = noteList;
+          this.count = noteList.length;
+        });
+      });
+    });
   }
 }

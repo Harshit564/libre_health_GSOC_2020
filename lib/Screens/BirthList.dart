@@ -7,6 +7,7 @@ import 'package:librehealth/Utils/DatabaseHelper.dart';
 import 'package:sqflite/sqflite.dart';
 
 class NoteList extends StatefulWidget {
+  static const String routeName = "/note-list";
   @override
   State<StatefulWidget> createState() {
     return NoteListState();
@@ -32,6 +33,7 @@ class NoteListState extends State<NoteList> {
       ),
       body: getNoteListView(),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.orange,
         onPressed: () {
           debugPrint('FAB clicked');
           navigateToDetail(Note('', '', 2), 'Add Birth Detail');

@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         SPLASH_SCREEN: (BuildContext context) => AnimatedSplashScreen(),
         HOME_SCREEN: (BuildContext context) => NoteList(),
         LOGIN_SCREEN: (BuildContext context) => LoginPage(),
+        
       },
     );
   }

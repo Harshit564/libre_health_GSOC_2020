@@ -32,6 +32,7 @@ dependencies:
   flutter_form_builder: ^3.6.1
   firebase_core: any
   firebase_database: ^0.4.1
+  rflutter_alert: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -50,6 +51,7 @@ flutter:
   assets:
     - images/lh.png
     - images/wireframe.png
+    - images/logo.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -55,6 +55,7 @@ class SplashScreenState extends State<AnimatedSplashScreen>
                 'images/lh.png',
                 width: animation.value * 250,
                 height: animation.value * 250,
+                
               ),
             ],
           ),

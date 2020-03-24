@@ -14,11 +14,14 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.5.2 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  sqflite: any
+  path_provider: any
+  intl: ^0.15.7
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -29,9 +32,7 @@ dependencies:
   flutter_form_builder: ^3.6.1
   firebase_core: any
   firebase_database: ^0.4.1
-  sqflite: ^1.2.0
-  path: ^1.6.4
-  flutter_bloc: ^3.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -48,6 +49,7 @@ flutter:
   uses-material-design: true
   assets:
     - images/lh.png
+    - images/wireframe.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

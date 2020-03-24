@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:librehealth/Constant/constant.dart';
-import 'package:librehealth/NameList.dart';
-import 'package:librehealth/Pages/HomePage.dart';
 import 'package:librehealth/Pages/LoginPage.dart';
 import 'package:librehealth/Pages/SplashScreen.dart';
-import 'bloc/NameBloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:librehealth/Screens/BirthList.dart';
 
 void main() {
   runApp(new MyApp());
@@ -21,7 +18,7 @@ class MyApp extends StatelessWidget {
       home: AnimatedSplashScreen(),
       routes: <String, WidgetBuilder>{
         SPLASH_SCREEN: (BuildContext context) => AnimatedSplashScreen(),
-        HOME_SCREEN: (BuildContext context) => HomePage(),
+        HOME_SCREEN: (BuildContext context) => NoteList(),
         LOGIN_SCREEN: (BuildContext context) => LoginPage(),
       },
     );

@@ -20,7 +20,7 @@ The project is for LibreHealth organization in GSOC 2020.
 
 P.S: You already have all the basic libraries and extensions of flutter on your IDE. 
 
-### ScreenShots of the Flutter Application
+## ScreenShots of the Flutter Application
 
 <img src="Screenshots/a1.jpeg" width=240>  <img src="Screenshots/a2.jpeg" width=240>  <img src="Screenshots/a3.jpeg" width=240>
 

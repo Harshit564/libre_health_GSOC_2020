@@ -23,8 +23,10 @@ P.S: You already have all the basic libraries and extensions of flutter on your 
 
 ## ScreenShots of the Flutter Application
 
-<img src="Screenshots/a1.jpeg" width=240>  <img src="Screenshots/a2.jpeg" width=240>  <img src="Screenshots/a3.jpeg" width=240>
+<img src="Screenshots/s1.jpeg" width=240>  <img src="Screenshots/s2.jpeg" width=240>  <img src="Screenshots/s3.jpeg" width=240>
 
-<img src="Screenshots/a4.jpeg" width=240>  <img src="Screenshots/a5.jpeg" width=240>  <img src="Screenshots/a6.jpeg" width=240>
+<img src="Screenshots/s4.jpeg" width=240>  <img src="Screenshots/s5.jpeg" width=240>  <img src="Screenshots/s6.jpeg" width=240>
 
-<img src="Screenshots/a7.jpeg" width=240>
+<img src="Screenshots/s7.jpeg" width=240>  <img src="Screenshots/s8.jpeg" width=240>  <img src="Screenshots/s9.jpeg" width=240>
+
+<img src="Screenshots/s10.jpeg" width=240>  <img src="Screenshots/s11.jpeg" width=240>

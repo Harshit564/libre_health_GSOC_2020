@@ -25,6 +25,7 @@ class HomePageState extends State<HomePage> {
     return WillPopScope(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.orange,
           centerTitle: true,
           title: Text("Home Page"),
           actions: <Widget>[

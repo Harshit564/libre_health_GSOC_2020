@@ -22,7 +22,7 @@ class SplashScreenState extends State<AnimatedSplashScreen>
   }
 
   void navigationPage() {
-    Navigator.of(context).pushReplacementNamed(LOGIN_SCREEN);
+    Navigator.of(context).pushReplacementNamed(INTRO_SCREEN);
   }
 
   @override
@@ -55,7 +55,6 @@ class SplashScreenState extends State<AnimatedSplashScreen>
                 'images/lh.png',
                 width: animation.value * 250,
                 height: animation.value * 250,
-                
               ),
             ],
           ),

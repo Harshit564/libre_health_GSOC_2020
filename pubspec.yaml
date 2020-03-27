@@ -33,6 +33,7 @@ dependencies:
   firebase_core: any
   firebase_database: ^0.4.1
   rflutter_alert: ^1.0.3
+  flutter_swiper: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -52,7 +53,9 @@ flutter:
     - images/lh.png
     - images/wireframe.png
     - images/logo.png
-
+    - images/1.png
+    - images/2.png
+    - images/3.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

@@ -14,6 +14,10 @@ The project is for LibreHealth organization in GSOC 2020.
     1) Open the file at the root directory
     2) Code your modifications in the project.
  
+
+For help getting started with Flutter, view our online documentation, which offers tutorials, samples, guidance on mobile development, and a full API reference.
+ 
+
 P.S: You already have all the basic libraries and extensions of flutter on your IDE. 
 
 ### ScreenShots of the Flutter Application

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:librehealth/Models/note.dart';
-import 'package:librehealth/Pages/HomePage.dart';
-import 'package:librehealth/Screens/BirthList.dart';
 import 'package:librehealth/Utils/DatabaseHelper.dart';
 
 class NoteDetail extends StatefulWidget {
@@ -227,7 +225,8 @@ class NoteDetailState extends State<NoteDetail> {
       _showAlertDialog('Credential Generated', '0x54D65C');
     } else {
       // Failure
-      _showAlertDialog('Status', 'Problem Saving Birth Detail');
+      _showAlertDialog(
+          'Credential not Generated', 'Problem Saving Birth Entry');
     }
   }
 
@@ -237,16 +236,18 @@ class NoteDetailState extends State<NoteDetail> {
     // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
     // the detail page by pressing the FAB of NoteList page.
     if (note.id == null) {
-      _showAlertDialog('Status', 'No Birth Detail was deleted');
+      _showAlertDialog('Credential Deleted', 'No Birth Entry was deleted');
       return;
     }
 
     // Case 2: User is trying to delete the old note that already has a valid ID.
     int result = await helper.deleteNote(note.id);
     if (result != 0) {
-      _showAlertDialog('Credential Deleted', 'Birth Entry Deleted Successfully');
+      _showAlertDialog(
+          'Credential Deleted', 'Birth Entry Deleted Successfully');
     } else {
-      _showAlertDialog('Credential Deleted', 'Error Occured while Deleting Birth Detail');
+      _showAlertDialog(
+          'Credential Deleted', 'Error Occured while Deleting Birth Detail');
     }
   }
 
